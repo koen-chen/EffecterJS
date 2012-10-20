@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Effecter Demo</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/Effecter.js"></script>
+    <script>
+    window.onload = function(){
+        var baseConfig = {
+                'container' : 'container',
+                'effectName' : 'scale',
+                'effectArg' : 3,
+                'direction' : 'left',
+                'maskImg' : 'circle-mask.png',
+                'bgImgs' : [
+                    { 'name':'bg1.jpg' },
+                    { 'name':'bg2.jpg' },
+                    { 'name':'bg3.jpg' }
+                ],
+                duration : '1s',
+                autoPlay : true
+            },
+            effecter = null,
+            effectType = [].slice.call(document.querySelectorAll('.effect-type input[type=radio]')),
+            controlType = [].slice.call(document.querySelectorAll('.control-type input[type=radio]'));
+        
+        effectType.forEach(function(item){
+            item.onclick = function(){
+                document.getElementById('container').innerHTML = '';
+                baseConfig['effectName'] = item.value;
+                effecter = new Effecter(baseConfig);
+                effecter.begin();  
+            }
+        });
+
+        controlType.forEach(function(item){
+            item.onclick = function(){
+                document.getElementById('container').innerHTML = '';
+                effectType.forEach(function(item){
+                    item.checked = false;
+                });
+                
+                baseConfig.autoPlay = (item.value === 'manual') ? false : true;
+                document.getElementById('explain').innerText = '先在下列选择一个效果，' + (baseConfig.autoPlay ? '程序会自动轮询播放' : '然后手指从左至右滑动进行操作' );
+                document.getElementById('clickTips').style.display = baseConfig.autoPlay ? 'none' : 'block';  
+            }
+        });
+
+        document.getElementById('reset').onclick = function(){
+            effecter.reset();
+        }
+        document.getElementById('start').onclick = function(){
+            effecter.run();
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="container" style="width:400px;height:400px;" >
+    </div>
+     <button type="button" id="reset">重置</button>
+     <button type="button" id="start">开始</button>
+    <div id="control">
+        <div class="control-type">
+            <input type="radio" name="controlType" value="manual" />手动拖放
+            <input type="radio" name="controlType" value="auto" checked="checked" />自动轮询
+        </div>
+
+        <p id="explain">先在下列选择一个效果，程序会自动轮询播放</p>
+        <div class="effect-type">
+            <div>
+                <input type="radio" name="effectType" value="slide" />滑动 
+                <input type="radio" name="effectType" value="flip" />翻页 
+                <input type="radio" name="effectType" value="cube" />立方体 
+            </div>
+            <div id="clickTips" style="display:none">以下效果无需滑动，点击即可切换</div>
+            <div>
+                <input type="radio" name="effectType" value="blocks" />格子 
+                <input type="radio" name="effectType" value="blinds" />百叶窗 
+                <input type="radio" name="effectType" value="wipe" />擦除 
+                <input type="radio" name="effectType" value="fade" />消退 
+                <input type="radio" name="effectType" value="swap" />交换
+            </div>
+        </div>
+    </div>
+</body>
+</html>

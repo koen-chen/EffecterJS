@@ -1,0 +1,10 @@
+html,body,div,p,span,em,strong,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,input,textarea,select,button,th,td,blockquote { margin:0;padding:0; }
+
+
+#container { position:relative;margin:40px auto; }
+#explain, #clickTips { font-size:12px;width:400px;padding:2px 0;text-align:center;margin:20px auto;background:#e9f3e8;border:1px solid #ddd; }
+.control-type { width:200px;margin:auto;font-size:12px; }
+.effect-type { width:400px;margin:auto;font-size:12px; }
+input { margin:10px 5px 0 20px;position:relative;top:2px; }
+.effect-type div { margin:10px 0; }
+button { font-size:14px;display:block;width:100px;margin:10px auto; }
